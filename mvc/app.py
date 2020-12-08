@@ -19,15 +19,15 @@ def get_user_detail(user_id):
 @app.route('/register', methods=["POST"])
 def register_user():
     data = request.json
-    logging.info('register user details method with payload' + data)
+    logging.info('register user details method with payload' + str(data))
     return mvc.controllers.user_controller.User.add_user(data)
 
 
 @app.route('/update/<int:user_id>', methods=['PUT'])
 def update_user_detail(user_id):
     data = request.json
-    update_reponse = mvc.controllers.user_controller.User.update_user(user_id, data)
-    return update_reponse
+    updated_response = mvc.controllers.user_controller.User.update_user(user_id, data)
+    return updated_response
 
 
 @app.route('/user/<int:user_id>', methods=['DELETE'])
@@ -82,14 +82,14 @@ def add_loan_details():
     return mvc.controllers.user_controller.Loan.add_loan(data)
 
 
-@app.route('/loan/<loanid>', methods=['GET'])
-def get_loan_details(loanid):
-    return mvc.controllers.user_controller.Loan.get_loan_details(loanid)
+@app.route('/loan/<loanId>', methods=['GET'])
+def get_loan_details(loanId):
+    return mvc.controllers.user_controller.Loan.get_loan_details(loanId)
 
 
-@app.route('/loan/<loanid>', methods=['DELETE'])
-def delete_loan(loanid):
-    delete_response = mvc.controllers.user_controller.Loan.delete_loan(loanid)
+@app.route('/loan/<loanId>', methods=['DELETE'])
+def delete_loan(loanId):
+    delete_response = mvc.controllers.user_controller.Loan.delete_loan(loanId)
     if int(delete_response) == 0:
         return make_response('Could not delete: User not found', 404)
     elif int(delete_response):

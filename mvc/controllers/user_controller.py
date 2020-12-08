@@ -17,11 +17,16 @@ class User:
                     return data
                 return make_response(jsonify({"message": "No records found!"}), 200)
         except Exception as e:
+            logging.error(e)
             raise e
 
     @classmethod
     def delete_user(cls, user_id):
         return mvc.model.mongoclient.MongoModel.delete_record('user_id', user_id)
+
+    @classmethod
+    def update_user(cls, user_id, data):
+        pass
 
     @classmethod
     def add_user(cls, request_data):
@@ -37,7 +42,7 @@ class User:
             else:
                 response = make_response(jsonify({"Warning": "Customer creation failed."}), 500)
         except Exception as ex:
-            response = make_response(jsonify({"Error": "Error occurred on Customer creation."}+ex), 500)
+            response = make_response(jsonify({"Error": "Error occurred on Customer creation."} + ex), 500)
         return response
 
 
@@ -52,16 +57,16 @@ class Loan:
             else:
                 response = make_response(jsonify({"Warning": "Loan creation failed."}), 500)
         except Exception as ex:
-            response = make_response(jsonify({"Error": "Error occurred on Loan creation."}+ex), 500)
+            response = make_response(jsonify({"Error": "Error occurred on Loan creation."} + ex), 500)
         return response
 
     @classmethod
-    def get_loan_details(cls, loanid):
+    def get_loan_details(cls, loanId):
         try:
-            if loanid is None:
+            if loanId is None:
                 return make_response(jsonify({"message": "Invalid/Search criteria!"}), 400)
             else:
-                data = mvc.model.mongoclient.MongoModel.get_record('loanid', loanid, 'Loan')
+                data = mvc.model.mongoclient.MongoModel.get_record('loanId', loanId, 'Loan')
                 if len(data) > 0:
                     return data
                 return make_response(jsonify({"message": "No records found!"}), 200)
@@ -69,5 +74,5 @@ class Loan:
             raise e
 
     @classmethod
-    def delete_loan(cls, loanid):
-        return mvc.model.mongoclient.MongoModel.delete_record('loanid', loanid, 'Loan')
+    def delete_loan(cls, loanId):
+        return mvc.model.mongoclient.MongoModel.delete_record('loanId', loanId, 'Loan')
