@@ -40,7 +40,7 @@ class User:
                 response = make_response(jsonify({"user_id": user_id}), 200)
                 response.headers["trace_id"] = _id
             else:
-                response = make_response(jsonify({"Warning": "Customer creation failed."}), 500)
+                response = make_response(jsonify({"Warning": "Customer creation failed.."}), 500)
         except Exception as ex:
             response = make_response(jsonify({"Error": "Error occurred on Customer creation."} + ex), 500)
         return response
