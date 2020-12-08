@@ -26,7 +26,7 @@ def register_user():
 @app.route('/update/<int:user_id>', methods=['PUT'])
 def update_user_detail(user_id):
     data = request.json
-    update_reponse = mvc.controllers.user_controller.User.update_user(user_id,data)
+    update_reponse = mvc.controllers.user_controller.User.update_user(user_id, data)
     return update_reponse
 
 
