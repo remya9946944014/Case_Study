@@ -51,9 +51,12 @@ class Loan:
     def add_loan(cls, request_data):
         _id = None
         try:
+            request_data["loan_id"] = mvc.model.mongoclient.MongoModel.get_document_number("loan_id") + 1
             _id = mvc.model.mongoclient.MongoModel.add_record(request_data, "Loan")
             if _id:
-                response = make_response(jsonify({"Success": "Loan added."}), 200)
+                loan_id = request_data["loan_id"]
+                response = make_response(jsonify({"loan_id": loan_id}), 200)
+                response.headers["trace_id"] = _id
             else:
                 response = make_response(jsonify({"Warning": "Loan creation failed."}), 500)
         except Exception as ex:
@@ -61,12 +64,12 @@ class Loan:
         return response
 
     @classmethod
-    def get_loan_details(cls, loanId):
+    def get_loan_details(cls, loan_id):
         try:
-            if loanId is None:
+            if loan_id is None:
                 return make_response(jsonify({"message": "Invalid/Search criteria!"}), 400)
             else:
-                data = mvc.model.mongoclient.MongoModel.get_record('loanId', loanId, 'Loan')
+                data = mvc.model.mongoclient.MongoModel.get_record('loanId', loan_id, 'Loan')
                 if len(data) > 0:
                     return data
                 return make_response(jsonify({"message": "No records found!"}), 200)
@@ -74,5 +77,5 @@ class Loan:
             raise e
 
     @classmethod
-    def delete_loan(cls, loanId):
-        return mvc.model.mongoclient.MongoModel.delete_record('loanId', loanId, 'Loan')
+    def delete_loan(cls, loan_id):
+        return mvc.model.mongoclient.MongoModel.delete_record('loanId', loan_id, 'Loan')
