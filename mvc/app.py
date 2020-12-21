@@ -59,7 +59,7 @@ def register_user():
 
 @app.route('/update/<int:user_id>', methods=['PUT'])
 @token_required
-def update_user_detail(user,user_id):
+def update_user_detail(user_id, data):
     data = request.json
     updated_response = mvc.controllers.user_controller.User.update_user(user_id, data)
     return updated_response
@@ -67,7 +67,7 @@ def update_user_detail(user,user_id):
 
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 @token_required
-def delete_user(user,user_id):
+def delete_user(user, user_id):
     delete_response = mvc.controllers.user_controller.User.delete_user(user_id)
     if int(delete_response) == 0:
         return make_response('Could not delete: User not found', 203)

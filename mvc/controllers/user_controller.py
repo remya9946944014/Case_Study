@@ -26,7 +26,7 @@ class User:
 
     @classmethod
     def update_user(cls, user_id, data):
-        pass
+        mvc.model.mongoclient.MongoModel.update_record(user_id, data)
 
     @classmethod
     def add_user(cls, request_data):

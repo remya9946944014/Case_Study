@@ -47,5 +47,8 @@ class MongoModel:
         return response.inserted_id
 
     @classmethod
-    def update_record(cls, request_data, collection_name=None):
-        pass
+    def update_record(cls, request_data, collection_name=None, statement=None):
+        if collection_name:
+            cls.collection = cls.db[collection_name]
+            response = cls.collection.update_one(statement, {"$set": request_data})
+        return response
