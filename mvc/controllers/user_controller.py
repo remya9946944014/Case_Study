@@ -51,7 +51,7 @@ class Loan:
     def add_loan(cls, request_data):
         _id = None
         try:
-            request_data["loan_id"] = mvc.model.mongoclient.MongoModel.get_document_number("loan_id") + 1
+            request_data["loan_id"] = mvc.model.mongoclient.MongoModel.get_document_number("loan_id","Loan") + 1
             _id = mvc.model.mongoclient.MongoModel.add_record(request_data, "Loan")
             if _id:
                 loan_id = request_data["loan_id"]
@@ -69,7 +69,7 @@ class Loan:
             if loan_id is None:
                 return make_response(jsonify({"message": "Invalid/Search criteria!"}), 400)
             else:
-                data = mvc.model.mongoclient.MongoModel.get_record('loanId', loan_id, 'Loan')
+                data = mvc.model.mongoclient.MongoModel.get_record('loan_id', loan_id, 'Loan')
                 if len(data) > 0:
                     return data
                 return make_response(jsonify({"message": "No records found!"}), 200)
