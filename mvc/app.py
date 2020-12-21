@@ -119,13 +119,13 @@ def add_loan_details(user,user_id):
     return mvc.controllers.user_controller.Loan.add_loan(data)
 
 
-@app.route('/loan/<loan_id>/<int:user_id>', methods=['GET'])
+@app.route('/loan/<int:loan_id>/<int:user_id>', methods=['GET'])
 @token_required
 def get_loan_details(user,loan_id, user_id):
     return mvc.controllers.user_controller.Loan.get_loan_details(loan_id)
 
 
-@app.route('/loan/<loan_id>/<int:user_id>', methods=['DELETE'])
+@app.route('/loan/<int:loan_id>/<int:user_id>', methods=['DELETE'])
 @token_required
 def delete_loan(user,loan_id, user_id):
     delete_response = mvc.controllers.user_controller.Loan.delete_loan(loan_id)
