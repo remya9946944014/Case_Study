@@ -59,7 +59,7 @@ def register_user():
 
 @app.route('/update/<int:user_id>', methods=['PUT'])
 @token_required
-def update_user_detail(user_id, data):
+def update_user_detail(user_id):
     data = request.json
     updated_response = mvc.controllers.user_controller.User.update_user(user_id, data)
     return updated_response

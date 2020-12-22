@@ -26,7 +26,7 @@ class User:
 
     @classmethod
     def update_user(cls, user_id, data):
-        mvc.model.mongoclient.MongoModel.update_record(user_id, data)
+        return mvc.model.mongoclient.MongoModel.update_record(user_id, data)
 
     @classmethod
     def add_user(cls, request_data):
@@ -51,7 +51,7 @@ class Loan:
     def add_loan(cls, request_data):
         _id = None
         try:
-            request_data["loan_id"] = mvc.model.mongoclient.MongoModel.get_document_number("loan_id","Loan") + 1
+            request_data["loan_id"] = mvc.model.mongoclient.MongoModel.get_document_number("loan_id", "Loan") + 1
             _id = mvc.model.mongoclient.MongoModel.add_record(request_data, "Loan")
             if _id:
                 loan_id = request_data["loan_id"]
