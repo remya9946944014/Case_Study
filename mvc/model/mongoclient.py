@@ -51,9 +51,9 @@ class MongoModel:
     def update_record(cls, user_id, request_data, collection_name=None, statement=None):
         if collection_name:
             cls.collection_name = cls.db[collection_name]
-        response = cls.collection_name.update_one({"user_id": str(user_id)}, {"$set": request_data})
+        response = cls.collection_name.update_one({"user_id": int(user_id)}, {"$set": request_data})
         updated_id = response.modified_count
-        return jsonify({"message": f" Updated record ID - {updated_id}"})
+        return jsonify({"message": f" Updated rows - {updated_id}"})
 
 
 
